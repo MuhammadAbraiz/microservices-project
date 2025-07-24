@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mini Commerce - Cart</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="header-bar">
+        <div class="header-content">
+            <div class="logo">MiniDaraz</div>
+            <form class="search-bar" onsubmit="event.preventDefault();">
+                <input type="text" placeholder="Search for products, brands and more...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </form>
+            <div class="header-icons">
+                <a href="cart.html" title="Cart"><i class="fas fa-shopping-cart"></i><span class="icon-badge" id="cart-count">0</span></a>
+                <a href="login.html" title="User"><i class="fas fa-user"></i></a>
+            </div>
+        </div>
+    </div>
+    <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="cart.html" class="active">Cart</a>
+        <a href="orders.html">Orders</a>
+        <a href="login.html">Login/Signup</a>
+    </nav>
+    <div class="container">
+        <div class="main-content">
+            <aside class="sidebar">
+                <h3>Categories</h3>
+                <ul>
+                    <li><a href="#">Mobiles</a></li>
+                    <li><a href="#">Electronics</a></li>
+                    <li><a href="#">Fashion</a></li>
+                    <li><a href="#">Home & Living</a></li>
+                    <li><a href="#">Beauty</a></li>
+                    <li><a href="#">Groceries</a></li>
+                </ul>
+            </aside>
+            <main class="cart-section">
+                <h2>Your Cart</h2>
+                <ul id="cart"></ul>
+                <button id="checkout-btn">Checkout</button>
+            </main>
+        </div>
+    </div>
+    <script src="js/cart.js"></script>
+    <script>
+    function updateCartCount() {
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        document.getElementById('cart-count').textContent = cart.length;
+    }
+    document.addEventListener('DOMContentLoaded', updateCartCount);
+    </script>
+</body>
+</html> 

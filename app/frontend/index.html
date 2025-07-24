@@ -1,12 +1,108 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Mini Commerce</title>
+    <title>Mini Commerce - Home</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <h1>Products</h1>
-    <ul id="products"></ul>
-
-    <script src="app.js"></script>
+    <div class="header-bar">
+        <div class="header-content">
+            <div class="logo">MiniDaraz</div>
+            <form class="search-bar" id="home-search-form">
+                <input type="text" id="home-search-input" placeholder="Search for products, brands and more...">
+                <button type="submit"><i class="fas fa-search"></i></button>
+    </form>
+            <div class="header-icons">
+                <a href="cart.html" title="Cart"><i class="fas fa-shopping-cart"></i><span class="icon-badge" id="cart-count">0</span></a>
+                <a href="login.html" title="User"><i class="fas fa-user"></i></a>
+            </div>
+        </div>
+    </div>
+    <nav class="main-nav">
+        <a href="index.html" class="active">Home</a>
+        <a href="products.html">Products</a>
+        <a href="cart.html">Cart</a>
+        <a href="orders.html">Orders</a>
+        <a href="login.html">Login/Signup</a>
+    </nav>
+    <div class="container">
+        <div class="main-content">
+            <aside class="sidebar">
+                <h3>Categories</h3>
+                <ul>
+                    <li><a href="#">Mobiles</a></li>
+                    <li><a href="#">Electronics</a></li>
+                    <li><a href="#">Fashion</a></li>
+                    <li><a href="#">Home & Living</a></li>
+                    <li><a href="#">Beauty</a></li>
+                    <li><a href="#">Groceries</a></li>
+                </ul>
+            </aside>
+            <main class="products-section">
+                <div class="promo-banner">
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=900&q=80" alt="Promo Banner">
+                </div>
+                <h2>Featured Products</h2>
+                <div class="products-grid" id="home-products">
+                    <!-- Product cards will be injected here -->
+                </div>
+            </main>
+        </div>
+    </div>
+    <script>
+    // Demo products for homepage with Unsplash images
+    const DEMO_PRODUCTS = [
+        { id: 1, name: 'Smartphone', price: 29999, img: 'https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=400&q=80' },
+        { id: 2, name: 'Bluetooth Headphones', price: 3999, img: 'https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=crop&w=400&q=80' },
+        { id: 3, name: "Men's T-Shirt", price: 799, img: 'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=400&q=80' },
+        { id: 4, name: 'Kitchen Blender', price: 4999, img: 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=400&q=80' },
+        { id: 5, name: 'Face Wash', price: 499, img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80' },
+        { id: 6, name: 'Rice 5kg', price: 1999, img: 'https://images.unsplash.com/photo-1504674900247-ec6b0b1b1b1b?auto=format&fit=crop&w=400&q=80' }
+    ];
+    let filteredProducts = DEMO_PRODUCTS;
+    function renderHomeProducts() {
+        const grid = document.getElementById('home-products');
+        grid.innerHTML = '';
+        filteredProducts.forEach(product => {
+            const card = document.createElement('div');
+            card.className = 'product-card';
+            card.innerHTML = `
+                <img src="${product.img}" alt="${product.name}">
+                <div class="product-name">${product.name}</div>
+                <div class="product-price">Rs. ${product.price.toLocaleString()}</div>
+                <button onclick="addToCart(${product.id})">Add to Cart</button>
+            `;
+            grid.appendChild(card);
+        });
+    }
+    function addToCart(id) {
+        const product = DEMO_PRODUCTS.find(p => p.id === id);
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        cart.push(product);
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        alert('Added to cart!');
+    }
+    function updateCartCount() {
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        document.getElementById('cart-count').textContent = cart.length;
+    }
+    document.getElementById('home-search-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const term = document.getElementById('home-search-input').value.trim().toLowerCase();
+        if (term) {
+            filteredProducts = DEMO_PRODUCTS.filter(p => p.name.toLowerCase().includes(term));
+        } else {
+            filteredProducts = DEMO_PRODUCTS;
+        }
+        renderHomeProducts();
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+        filteredProducts = DEMO_PRODUCTS;
+        renderHomeProducts();
+        updateCartCount();
+    });
+    </script>
 </body>
 </html>
