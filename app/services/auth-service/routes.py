@@ -1,10 +1,7 @@
 from fastapi import APIRouter, Depends
 import service
 from models import UserCreate, LoginRequest
-import sys
-import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'shared', 'schemas'))
-import models as shared_models
+from shared.schemas import models as shared_models
 
 router = APIRouter()
 

@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from . import service
-from .models import OrderCreate
-from ...shared.schemas.models import Order
+import service
+from models import OrderCreate
+from shared.schemas.models import Order
 from typing import List
 
 router = APIRouter()

@@ -1,7 +1,7 @@
 from fastapi import APIRouter
-from . import service
-from .models import ProductCreate
-from ...shared.schemas.models import Product
+import service
+from models import ProductCreate
+from shared.schemas.models import Product
 from typing import List
 
 router = APIRouter()

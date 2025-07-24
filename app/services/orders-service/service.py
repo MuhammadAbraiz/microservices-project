@@ -1,5 +1,5 @@
-from .models import OrderCreate
-from ...shared.schemas.models import Order
+from models import OrderCreate
+from shared.schemas.models import Order
 from typing import List
 
 # In-memory storage

@@ -1,5 +1,5 @@
-from .models import ProductCreate
-from ...shared.schemas.models import Product
+from models import ProductCreate
+from shared.schemas.models import Product
 from typing import List
 
 # In-memory storage

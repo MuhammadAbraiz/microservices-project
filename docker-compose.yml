@@ -1,0 +1,36 @@
+
+version: '3.8'
+services:
+  auth-service:
+    build: ./app/services/auth-service
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./app/services/auth-service:/app
+      - ./app/shared:/app/shared
+
+
+  catalog-service:
+    build: ./app/services/catalog-service
+    ports:
+      - "8002:8000"
+    volumes:
+      - ./app/services/catalog-service:/app
+      - ./app/shared:/app/shared
+
+
+  orders-service:
+    build: ./app/services/orders-service
+    ports:
+      - "8003:8000"
+    volumes:
+      - ./app/services/orders-service:/app
+      - ./app/shared:/app/shared
+
+
+  frontend:
+    image: nginx:latest
+    ports:
+      - "8081:80"
+    volumes:
+      - ./app/frontend:/usr/share/nginx/html
